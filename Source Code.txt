@@ -1,0 +1,62 @@
+package naive.bayes.code;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+
+public class NaiveBayesCode {
+    public static void main(String[] args) {
+        ArrayList<String> data = new ArrayList<>();
+        
+        // Χρήση του αρχικού path που έδωσες
+        String filePath = "C:\\Users\\Administrator\\Desktop\\Naive Bayes\\Naive Bayes code\\lenses.txt";
+        
+        try {
+            Scanner scanner = new Scanner(new File(filePath));
+            while (scanner.hasNextLine()) {
+                data.add(scanner.nextLine().trim()); // Αφαιρούμε κενά στην αρχή/τέλος
+            }
+            scanner.close();
+
+            // Ορισμός των πινάκων δεδομένων
+            double[][] Age = new double[3][3];
+            
+            double counter_hard = 0.0;
+            double counter_soft = 0.0;
+            double counter_no = 0.0;
+            double counter = 0.0;
+            double counter_young_soft = 0.0;
+            double counter_young_none = 0.0;
+
+            // Ζήτηση τιμών από τον χρήστη
+            String input1 = JOptionPane.showInputDialog("Δώσε την πρώτη τιμή:");
+            String input2 = JOptionPane.showInputDialog("Δώσε τη δεύτερη τιμή:");
+
+            for (String line : data) {
+                if (line.equals("hard")) counter_hard++;
+                if (line.equals("soft")) counter_soft++;
+                if (line.equals("none")) counter_no++;
+
+                if (line.equals("young hard")) counter++;
+                if (line.equals("young soft")) counter_young_soft++;
+                if (line.equals("young none")) counter_young_none++;
+            }
+
+            // Υπολογισμός πιθανοτήτων
+            if (counter_hard != 0) counter /= counter_hard;
+            if (counter_soft != 0) counter_young_soft /= counter_soft;
+            if (counter_no != 0) counter_young_none /= counter_no;
+
+            // Αποθήκευση στο Age
+            Age[1][1] = counter;
+            Age[1][2] = counter_young_soft;
+            Age[1][3] = counter_young_none;
+
+            System.out.println("Πιθανότητα Young Soft: " + counter_young_soft);
+        } catch (FileNotFoundException e) {
+            System.out.println("Το αρχείο δεν βρέθηκε: " + filePath);
+        }
+    }
+}
