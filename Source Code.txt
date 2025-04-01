@@ -9,9 +9,8 @@ import javax.swing.JOptionPane;
 public class NaiveBayesCode {
     public static void main(String[] args) {
         ArrayList<String> data = new ArrayList<>();
-        
-        // Χρήση του αρχικού path που έδωσες
-        String filePath = "C:\\Users\\Administrator\\Desktop\\Naive Bayes\\Naive Bayes code\\lenses.txt";
+
+         String filePath = System.getProperty("user.dir") + File.separator + "lenses.txt";
         
         try {
             Scanner scanner = new Scanner(new File(filePath));
