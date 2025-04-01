@@ -1,64 +1,25 @@
 # Naive-Bayes-Classification-In-Java-
-package naive.bayes.code;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import javax.swing.JOptionPane;
+Naive Bayes Classifier in Java
+Αυτό το πρόγραμμα υλοποιεί έναν ταξινομητή Naive Bayes σε Java, ο οποίος χρησιμοποιεί ένα σύνολο δεδομένων (lenses.txt) για την κατηγοριοποίηση τύπων φακών επαφής.
 
-public class NaiveBayesCode {
-    public static void main(String[] args) {
-        ArrayList<String> data = new ArrayList<>();
-        
-        // Χρήση σχετικής διαδρομής
-        String filePath = System.getProperty("user.dir") + File.separator + "lenses.txt";
-        
-        try {
-            Scanner scanner = new Scanner(new File(filePath));
-            while (scanner.hasNextLine()) {
-                data.add(scanner.nextLine().trim()); // Αφαιρούμε κενά στην αρχή/τέλος
-            }
-            scanner.close();
+Λειτουργίες:
+✔ Διαβάζει δεδομένα από ένα αρχείο .txt.
+✔ Υπολογίζει πιθανότητες βασισμένες στο Naive Bayes.
+✔ Ζητά είσοδο από τον χρήστη για πρόβλεψη.
+✔ Εμφανίζει αποτελέσματα στην κονσόλα.
 
-            // Ορισμός των πινάκων δεδομένων
-            double[][] Age = new double[3][3];
-            
-            double counter_hard = 0.0;
-            double counter_soft = 0.0;
-            double counter_no = 0.0;
-            double counter = 0.0;
-            double counter_young_soft = 0.0;
-            double counter_young_none = 0.0;
+Αρχείο Δεδομένων (lenses.txt)
+Το αρχείο περιέχει πληροφορίες για τύπους φακών, με χαρακτηριστικά όπως ηλικία, μυωπία και παραγωγή δακρύων.
 
-            // Ζήτηση τιμών από τον χρήστη
-            String input1 = JOptionPane.showInputDialog("Δώσε την πρώτη τιμή:");
-            String input2 = JOptionPane.showInputDialog("Δώσε τη δεύτερη τιμή:");
+Τρόπος Εκτέλεσης:
+1️⃣ Τοποθετήστε το lenses.txt στον φάκελο του project.
+2️⃣ Εκτελέστε το NaiveBayesCode.java από το NetBeans ή άλλο IDE.
+3️⃣ Εισαγάγετε δεδομένα όταν σας ζητηθεί.
 
-            for (String line : data) {
-                if (line.equals("hard")) counter_hard++;
-                if (line.equals("soft")) counter_soft++;
-                if (line.equals("none")) counter_no++;
+Απαιτήσεις:
+Java 8+
 
-                if (line.equals("young hard")) counter++;
-                if (line.equals("young soft")) counter_young_soft++;
-                if (line.equals("young none")) counter_young_none++;
-            }
+NetBeans / IntelliJ / Eclipse
 
-            // Υπολογισμός πιθανοτήτων
-            if (counter_hard != 0) counter /= counter_hard;
-            if (counter_soft != 0) counter_young_soft /= counter_soft;
-            if (counter_no != 0) counter_young_none /= counter_no;
-
-            // Αποθήκευση στο Age
-            Age[1][1] = counter;
-            Age[1][2] = counter_young_soft;
-            Age[1][3] = counter_young_none;
-
-            System.out.println("Πιθανότητα Young Soft: " + counter_young_soft);
-        } catch (FileNotFoundException e) {
-            System.out.println("Το αρχείο δεν βρέθηκε: " + filePath);
-        }
-    }
-}
-
+💡 Επεκτάσεις: Μπορεί να προσαρμοστεί για διαφορετικά datasets! 🚀
